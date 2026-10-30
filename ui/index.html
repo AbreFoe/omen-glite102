@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GLite</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <symbol id="i-mouse" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="7"/><path d="M12 6v4"/></symbol>
+    <symbol id="i-light" viewBox="0 0 24 24"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.1V17h6v-.2c0-.8.4-1.6 1-2.1A7 7 0 0 0 12 2z"/></symbol>
+    <symbol id="i-buttons" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><path d="M17.5 14v7M14 17.5h7"/></symbol>
+    <symbol id="i-discord" viewBox="0 0 24 24"><path d="M3 14v-2a9 9 0 0 1 18 0v2"/><rect x="2" y="14" width="5" height="7" rx="2"/><rect x="17" y="14" width="5" height="7" rx="2"/></symbol>
+    <symbol id="i-settings" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></symbol>
+    <symbol id="i-save" viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+    <symbol id="i-min" viewBox="0 0 24 24"><path d="M6 12h12"/></symbol>
+    <symbol id="i-max" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2"/></symbol>
+    <symbol id="i-rec" viewBox="0 0 24 24"><circle cx="12" cy="12" r="6"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></symbol>
+    <symbol id="i-chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></symbol>
+    <symbol id="i-mic" viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v4"/></symbol>
+    <symbol id="i-headoff" viewBox="0 0 24 24"><path d="M3 14v-2a9 9 0 0 1 15-6.7M21 12v2"/><rect x="2" y="14" width="5" height="7" rx="2"/><rect x="17" y="14" width="5" height="7" rx="2"/><path d="M3 3l18 18"/></symbol>
+    <symbol id="i-sync" viewBox="0 0 24 24"><path d="M21 12a9 9 0 0 1-15.5 6.2M3 12A9 9 0 0 1 18.5 5.8M18 2v4h-4M6 22v-4h4"/></symbol>
+  </defs>
+</svg>
+
+<div class="app">
+  <header class="titlebar" data-tauri-drag-region>
+    <div class="brand" data-tauri-drag-region>
+      <span class="logo"><svg><use href="#i-mouse"/></svg></span>
+      <span data-tauri-drag-region>GLite</span>
+    </div>
+    <div class="dev-chip" id="devChip" data-tauri-drag-region><span class="dot"></span><span id="devName">Поиск мыши…</span></div>
+    <div class="win-btns">
+      <button class="win" data-win="min" title="Свернуть"><svg><use href="#i-min"/></svg></button>
+      <button class="win" data-win="max" title="Развернуть"><svg><use href="#i-max"/></svg></button>
+      <button class="win close" data-win="close" title="Свернуть в трей"><svg><use href="#i-close"/></svg></button>
+    </div>
+  </header>
+
+  <nav class="rail">
+    <button class="rail-item active" data-page="mouse"><span class="pill"><svg><use href="#i-mouse"/></svg></span><span>Мышь</span></button>
+    <button class="rail-item" data-page="light"><span class="pill"><svg><use href="#i-light"/></svg></span><span>Подсветка</span></button>
+    <button class="rail-item" data-page="buttons"><span class="pill"><svg><use href="#i-buttons"/></svg></span><span>Кнопки</span></button>
+    <button class="rail-item" data-page="discord"><span class="pill"><svg><use href="#i-discord"/></svg></span><span>Discord</span></button>
+    <span class="rail-spacer"></span>
+    <button class="rail-item" data-page="settings"><span class="pill"><svg><use href="#i-settings"/></svg></span><span>Настройки</span></button>
+  </nav>
+
+  <main>
+    <!-- MOUSE -->
+    <section class="page active" id="page-mouse">
+      <h1>Мышь</h1>
+      <div class="grid">
+        <div class="card hero">
+          <div class="mouse-art">
+            <div class="glow" id="heroGlow"></div>
+            <svg viewBox="0 0 120 200" class="mouse-svg">
+              <path d="M60 6C30 6 12 30 12 64v70c0 34 20 60 48 60s48-26 48-60V64C108 30 90 6 60 6z" class="body"/>
+              <path d="M60 6v62M12 68h96" class="seam"/>
+              <rect x="54" y="26" width="12" height="26" rx="6" class="wheel"/>
+              <path d="M38 150q22 14 44 0" class="logo-led" id="heroLed"/>
+            </svg>
+          </div>
+          <div class="hero-text">
+            <div class="label">Текущее DPI</div>
+            <div class="display" id="heroDpi">—</div>
+            <div class="sub" id="heroSub">Мышь не подключена</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-head"><h2>Уровни DPI</h2><span class="hint">до 5 уровней, кнопка DPI переключает их по кругу</span></div>
+          <div class="stages" id="stages"></div>
+          <div class="stage-editor">
+            <input type="range" id="dpiSlider" class="slider" min="50" max="8000" step="50">
+            <div class="stage-row">
+              <div class="field small"><input type="number" id="dpiInput" min="50" max="8000" step="50"><label>DPI</label></div>
+              <button class="btn tonal" id="setDefault">По умолчанию</button>
+              <button class="btn tonal" id="setShift">Для «Снайпера»</button>
+              <span class="grow"></span>
+              <button class="btn text danger" id="delStage">Удалить</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-head"><h2>Частота опроса</h2><span class="hint">чем выше — тем плавнее, но больше нагрузка на CPU</span></div>
+          <div class="segmented" id="rateSeg"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LIGHT -->
+    <section class="page" id="page-light">
+      <h1>Подсветка</h1>
+      <div class="grid">
+        <div class="card hero light-hero">
+          <div class="mouse-art big">
+            <div class="glow" id="lightGlow"></div>
+            <svg viewBox="0 0 120 200" class="mouse-svg">
+              <path d="M60 6C30 6 12 30 12 64v70c0 34 20 60 48 60s48-26 48-60V64C108 30 90 6 60 6z" class="body"/>
+              <path d="M60 6v62M12 68h96" class="seam"/>
+              <rect x="54" y="26" width="12" height="26" rx="6" class="wheel"/>
+              <path d="M38 150q22 14 44 0" class="logo-led" id="lightLed"/>
+            </svg>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-head"><h2>Эффект</h2></div>
+          <div class="segmented" id="effectSeg">
+            <button data-v="off">Выкл</button><button data-v="static">Статичный</button><button data-v="breathing">Дыхание</button><button data-v="cycle">Радуга</button>
+          </div>
+          <div id="colorBlock">
+            <div class="card-head sub"><h3>Цвет</h3></div>
+            <div class="swatches" id="swatches"></div>
+          </div>
+          <div id="speedBlock">
+            <div class="card-head sub"><h3>Скорость</h3><span class="value" id="speedVal"></span></div>
+            <input type="range" class="slider" id="speed" min="1000" max="20000" step="500">
+          </div>
+          <div id="brightBlock">
+            <div class="card-head sub"><h3>Яркость</h3><span class="value" id="brightVal"></span></div>
+            <input type="range" class="slider" id="bright" min="5" max="100" step="5">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BUTTONS -->
+    <section class="page" id="page-buttons">
+      <h1>Кнопки</h1>
+      <div class="grid two">
+        <div class="card btn-diagram">
+          <div class="diagram-wrap">
+          <svg viewBox="0 0 200 260" class="diagram">
+            <path d="M100 20C62 20 40 50 40 92v80c0 44 26 74 60 74s60-30 60-74V92c0-42-22-72-60-72z" class="body"/>
+            <path d="M100 20v80M40 100h120" class="seam"/>
+            <rect x="93" y="44" width="14" height="30" rx="7" class="wheel"/>
+            <rect x="94" y="80" width="12" height="12" rx="3" class="wheel"/>
+            <rect x="36" y="112" width="8" height="22" rx="4" class="wheel"/>
+            <rect x="36" y="138" width="8" height="22" rx="4" class="wheel"/>
+          </svg>
+          <div class="pin" data-b="0" style="left:33%;top:31%">1</div>
+            <div class="pin" data-b="1" style="left:67%;top:31%">2</div>
+            <div class="pin" data-b="2" style="left:50%;top:17%">3</div>
+            <div class="pin" data-b="3" style="left:18%;top:58%">4</div>
+            <div class="pin" data-b="4" style="left:18%;top:46%">5</div>
+            <div class="pin" data-b="5" style="left:50%;top:34%">6</div>
+          </div>
+        </div>
+        <div class="card list" id="btnList"></div>
+      </div>
+      <p class="footnote">Кнопки с действиями приложения (макросы, Discord) мышь отправляет как клавиши F13–F18 — GLite их перехватывает. Без запущенного GLite такие кнопки ничего не делают; остальные назначения хранятся в самой мыши и работают везде.</p>
+    </section>
+
+    <!-- DISCORD -->
+    <section class="page" id="page-discord">
+      <h1>Discord</h1>
+      <div class="grid">
+        <div class="card hero discord-hero">
+          <div class="ds-status">
+            <div class="ds-big" id="dsMuteBtn"><svg><use href="#i-mic"/></svg><span>Микрофон</span></div>
+            <div class="ds-big" id="dsDeafBtn"><svg><use href="#i-headoff"/></svg><span>Звук</span></div>
+          </div>
+          <div class="hero-text">
+            <div class="label">Состояние</div>
+            <div class="sub" id="dsState">Не подключено</div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-head"><h2>Способ управления</h2></div>
+          <div class="segmented" id="dsModeSeg"><button data-v="hotkey">Горячие клавиши</button><button data-v="rpc">Discord RPC</button></div>
+
+          <div id="dsHotkey">
+            <p class="hint block">Самый простой вариант. В Discord открой <b>Настройки → Горячие клавиши</b>, добавь «Вкл/выкл микрофон» и «Вкл/выкл звук» и назначь там такие же сочетания, как ниже. Лучше редкие, например <b>Ctrl+Shift+F9</b>.</p>
+            <div class="kv"><span>Микрофон</span><button class="keycap-field" id="dsMuteKeys"></button></div>
+            <div class="kv"><span>Звук</span><button class="keycap-field" id="dsDeafKeys"></button></div>
+          </div>
+
+          <div id="dsRpc">
+            <p class="hint block">Прямое управление и состояние мута в реальном времени. Нужно один раз создать своё приложение:</p>
+            <ol class="steps">
+              <li>Открой <b>discord.com/developers/applications</b> → New Application.</li>
+              <li>OAuth2 → скопируй <b>Client ID</b> и <b>Client Secret</b>, в Redirects добавь <b>http://localhost</b>.</li>
+              <li>Вставь их ниже и нажми «Подключить» — в Discord появится окно подтверждения.</li>
+            </ol>
+            <div class="field"><input id="dsClientId" placeholder=" " autocomplete="off"><label>Client ID</label></div>
+            <div class="field"><input id="dsSecret" type="password" placeholder=" " autocomplete="off"><label>Client Secret</label></div>
+            <div class="row"><button class="btn filled" id="dsConnect"><svg><use href="#i-sync"/></svg>Подключить</button></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SETTINGS -->
+    <section class="page" id="page-settings">
+      <h1>Настройки</h1>
+      <div class="grid">
+        <div class="card">
+          <div class="card-head"><h2>Оформление</h2></div>
+          <div class="kv"><span>Тема</span>
+            <div class="segmented compact" id="themeSeg"><button data-v="system">Системная</button><button data-v="light">Светлая</button><button data-v="dark">Тёмная</button></div>
+          </div>
+          <div class="kv"><span>Основной цвет</span><div class="swatches" id="seedSwatches"></div></div>
+        </div>
+        <div class="card">
+          <div class="card-head"><h2>Запуск</h2></div>
+          <label class="kv switch-row"><span>Запускать вместе с Windows</span><input type="checkbox" class="switch" id="autostart"></label>
+          <label class="kv switch-row"><span>Запускать свёрнутым в трей</span><input type="checkbox" class="switch" id="startMin"></label>
+        </div>
+        <div class="card">
+          <div class="card-head"><h2>Профиль мыши</h2></div>
+          <p class="hint block">Перед первой записью GLite сохраняет копию профиля из мыши (тот, что сделал G HUB), её можно вернуть в любой момент.</p>
+          <div class="row">
+            <button class="btn tonal" id="readMouse"><svg><use href="#i-sync"/></svg>Перечитать из мыши</button>
+            <button class="btn text" id="restore">Восстановить исходный</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <button class="fab" id="fab"><svg><use href="#i-save"/></svg><span>Записать в мышь</span></button>
+  <div class="snackbar" id="snack"></div>
+</div>
+
+<!-- Button editor dialog -->
+<div class="scrim" id="scrim"></div>
+<div class="dialog" id="dlg">
+  <h2 id="dlgTitle">Кнопка</h2>
+  <div class="dlg-body">
+    <h3>Назначение</h3>
+    <div class="chips" id="bindChips"></div>
+    <div id="actionBox">
+      <h3>Действие</h3>
+      <div class="chips" id="actChips"></div>
+      <div id="actEditor"></div>
+    </div>
+  </div>
+  <div class="dlg-actions">
+    <button class="btn text" id="dlgTest"><svg><use href="#i-play"/></svg>Тест</button>
+    <span class="grow"></span>
+    <button class="btn text" id="dlgCancel">Отмена</button>
+    <button class="btn filled" id="dlgOk">Готово</button>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

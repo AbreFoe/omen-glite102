@@ -1,0 +1,28 @@
+[package]
+name = "glite"
+version = "0.1.0"
+edition = "2021"
+description = "Lightweight Logitech G102 configurator"
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = ["tray-icon"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+hidapi = { version = "2.6", default-features = false, features = ["windows-native"] }
+ureq = { version = "2", features = ["json"] }
+windows-sys = { version = "0.59", features = [
+  "Win32_Foundation",
+  "Win32_UI_WindowsAndMessaging",
+  "Win32_UI_Input_KeyboardAndMouse",
+  "Win32_System_LibraryLoader",
+] }
+
+[profile.release]
+opt-level = "s"
+lto = true
+codegen-units = 1
+strip = true
+panic = "abort"
